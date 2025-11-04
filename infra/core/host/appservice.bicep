@@ -13,11 +13,11 @@ resource appService 'Microsoft.Web/sites@2022-09-01' = {
   name: name
   location: location
   tags: tags
-  kind: 'app,linux'
+  kind: 'app'
   properties: {
     serverFarmId: appServicePlanId
     siteConfig: {
-      linuxFxVersion: '${runtimeName}|${runtimeVersion}'
+      nodeVersion: '~${runtimeVersion}'
       alwaysOn: true
       ftpsState: 'FTPSOnly'
       minTlsVersion: '1.2'
@@ -38,11 +38,11 @@ resource stagingSlot 'Microsoft.Web/sites/slots@2022-09-01' = if (enableSlots) {
   name: 'staging'
   location: location
   tags: tags
-  kind: 'app,linux'
+  kind: 'app'
   properties: {
     serverFarmId: appServicePlanId
     siteConfig: {
-      linuxFxVersion: '${runtimeName}|${runtimeVersion}'
+      nodeVersion: '~${runtimeVersion}'
       alwaysOn: true
       ftpsState: 'FTPSOnly'
       minTlsVersion: '1.2'

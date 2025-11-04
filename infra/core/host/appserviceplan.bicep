@@ -10,9 +10,9 @@ resource appServicePlan 'Microsoft.Web/serverfarms@2022-09-01' = {
   tags: tags
   sku: sku
   properties: {
-    reserved: true
+    reserved: false
   }
-  kind: 'linux'
+  kind: 'windows'
 }
 
 output id string = appServicePlan.id
