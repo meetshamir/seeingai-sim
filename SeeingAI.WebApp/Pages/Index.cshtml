@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">👁️ Seeing AI Production Simulator</h1>
+    <p class="lead">Trigger a realistic incident and watch telemetry flow into Azure Application Insights.</p>
+
+    <div class="mt-4">
+        <button id="simulateButton" class="btn btn-danger btn-lg">🚨 Simulate Production Incident (P0)</button>
+    </div>
+
+    <div id="status" class="mt-3 alert alert-info" role="alert">
+        Telemetry status will appear here.
+    </div>
+
+    <div id="payload" class="mt-4 text-start"></div>
+</div>
+
+<section class="mt-5">
+    <h2>What gets captured?</h2>
+    <ul>
+        <li>Structured logs (severity, correlation id, suggested fix)</li>
+        <li>Distributed tracing activity tagged for the incident</li>
+        <li>Key metadata like impacted users, environment, and source file</li>
+    </ul>
+</section>
+
+<section class="mt-5">
+    <h2>🖼️ Seeing AI OCR Simulator</h2>
+    <p>
+        Upload an image to simulate Seeing AI's OCR pipeline. Images larger than <strong>512 KB</strong> or containing the
+        magic text signature <code>OVERFLOW</code> will trigger a real <em>BufferOverflowException</em>, producing telemetry in the
+        <strong>AppExceptions</strong> and <strong>AppTraces</strong> tables.
+    </p>
+
+    <div class="mt-3">
+        <input type="file" id="imageInput" accept="image/*" class="form-control" />
+    </div>
+    <div class="mt-3">
+        <button id="analyzeButton" class="btn btn-primary">🔍 Analyze Image</button>
+    </div>
+
+    <div id="analysisStatus" class="mt-3 alert alert-secondary">Choose an image to begin analysis.</div>
+    <div id="analysisPayload" class="mt-3 text-start"></div>
+
+    <p class="small text-muted mt-2">
+        Tip: upload a large PNG ( > 512 KB ) to reproduce the overflow defect or a small file for a successful analysis.
+    </p>
+</section>

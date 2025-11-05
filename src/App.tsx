@@ -14,19 +14,36 @@ function App() {
     const connectionString = import.meta.env.VITE_APPINSIGHTS_CONNECTION_STRING;
     const env = import.meta.env.VITE_ENVIRONMENT || 'development';
     
+    console.log('🔍 App initialization debug:', {
+      hasConnectionString: !!connectionString,
+      connectionStringLength: connectionString?.length || 0,
+      environment: env,
+      allEnvVars: import.meta.env
+    });
+    
     setEnvironment(env);
 
     if (connectionString) {
+      console.log('🔄 Initializing telemetry service...');
       telemetryService.initialize(connectionString);
-      setIsInitialized(true);
       
-      // Track app initialization
-      telemetryService.trackEvent('App_Initialized', {
-        environment: env,
-        timestamp: new Date().toISOString(),
-      });
+      // Check if initialization was successful
+      setTimeout(() => {
+        const isReady = telemetryService.isInitialized();
+        console.log('🔍 Telemetry initialization result:', isReady);
+        setIsInitialized(isReady);
+        
+        if (isReady) {
+          // Track app initialization
+          telemetryService.trackEvent('App_Initialized', {
+            environment: env,
+            timestamp: new Date().toISOString(),
+          });
+        }
+      }, 2000);
     } else {
-      console.warn('Application Insights connection string not found. Set VITE_APPINSIGHTS_CONNECTION_STRING environment variable.');
+      console.warn('❌ Application Insights connection string not found. Set VITE_APPINSIGHTS_CONNECTION_STRING environment variable.');
+      console.warn('Available env vars:', Object.keys(import.meta.env));
     }
   }, []);
 

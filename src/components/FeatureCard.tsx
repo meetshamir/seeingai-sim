@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { AIFeature, seeingAIService } from '../services/seeingAIService';
-import { telemetryService } from '../services/telemetryService';
 
 interface FeatureCardProps {
   feature: AIFeature;
